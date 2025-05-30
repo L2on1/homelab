@@ -1,0 +1,6 @@
+Host leonj
+    HostName 172.17.0.1
+    User leonj
+    IdentityFile ~/.ssh/id_ed25519
+    RemoteCommand cd ~/Documents && exec bash
+    RequestTTY yes

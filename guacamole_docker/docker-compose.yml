@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  guacd:
+    image: guacamole/guacd
+    container_name: guacd
+    restart: always
+    networks:
+      - traefik_network
+
+  guacamole:
+    image: guacamole/guacamole
+    container_name: guacamole
+    restart: always
+    environment:
+      GUACD_HOSTNAME: ${GUACD_HOSTNAME} # Set the guacd hostname
+      MYSQL_HOSTNAME: ${MYSQL_HOSTNAME} # Set the MySQL hostname
+      MYSQL_DATABASE: ${MYSQL_DATABASE} # Set the MySQL database name
+      MYSQL_USER: ${MYSQL_USER} # Set the MySQL user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Set the MySQL password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # Set the MySQL root password
+    depends_on:
+      - guacd
+      - mysql
+    ports:
+      - "8082:8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.guacamole-secure.rule=Host(`frog.haribon.me`)"
+      - "traefik.http.routers.guacamole-secure.entrypoints=websecure"
+      - "traefik.http.routers.guacamole-secure.tls=true"
+      - "traefik.http.routers.guacamole-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.guacamole-secure.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.guacamole-auth.basicauth.users=leonj:$$2y$$05$$54DIRh2De25G/07tzSMX4.hhqt4ZOBzoBp5eMZM.WUcSVECBW5qjm" # Basic auth for the dashboard
+      - "traefik.http.routers.guacamole-secure.middlewares=guacamole-auth" # Apply the basic auth middleware to the dashboard
+      # - "traefik.http.middlewares.strip-path.stripprefix.prefixes=/"
+      # - "traefik.http.middlewares.add-path.addprefix.prefix=/guacamole/"
+      # - "traefik.http.routers.guacamole-secure.middlewares=strip-path,add-path"
+
+    networks:
+      - traefik_network
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_USER: guacuser
+      MYSQL_PASSWORD: guacpass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - traefik_network
+
+volumes:
+  mysql_data:
+
+networks:
+  traefik_network:
+    external: true
+

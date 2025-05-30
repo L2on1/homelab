@@ -1,0 +1,41 @@
+# /caddy-docker/Caddyfile
+# haribon.me {
+#     root * /srv/www
+#     file_server
+# }
+
+# {
+#     auto_https off
+# }
+
+http://localhost:80 {
+	root * /srv/www
+	file_server
+}
+
+
+# localhost:4443 {
+# 	root * /srv/www
+# 	file_server
+# 	tls internal
+# }
+
+# # reverse_proxy de portainer
+# portainer.haribon.me {
+#     reverse_proxy http://192.168.1.222:9000
+# }
+# 
+# # reverse_proxy de code-server
+# code.haribon.me {
+#     reverse_proxy http://code-server:8080
+# }
+# 
+# # reverse_proxy de wetty
+# wetty.haribon.me {
+#     reverse_proxy http://wetty:3000
+# }
+# 
+# # reverse_proxy de guacamole
+# guacamole.haribon.me {
+#     reverse_proxy http://guacamole:8080
+# }

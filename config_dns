@@ -1,0 +1,14 @@
+; Domain: haribon.me
+; Exported (y-m-d hh:mm:ss): 2025-04-28 00:39:20
+; Actual version
+
+$TTL 3600
+@              IN SOA   nsany1.infomaniak.com. hostmaster.infomaniak.ch. (2025042705 10800 3600 605800 3600)
+          3600 IN A     176.134.154.54
+          3600 IN NS    nsany1.infomaniak.com.
+          3600 IN NS    nsany2.infomaniak.com.
+code      3600 IN CNAME haribon.me.
+guacamole 3600 IN CNAME haribon.me.
+portainer 3600 IN CNAME haribon.me.
+traefik   3600 IN CNAME haribon.me.
+wetty     3600 IN CNAME haribon.me.

@@ -1,0 +1,29 @@
+version: '3'
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+    restart: unless-stopped
+    environment:
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer-secure.rule=Host(`bee.haribon.me`)"
+      - "traefik.http.routers.portainer-secure.entrypoints=websecure"
+      - "traefik.http.routers.portainer-secure.tls=true"
+      - "traefik.http.routers.portainer-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.portainer-secure.loadbalancer.server.port=9000"
+      # - "traefik.http.middlewares.portainer-auth.basicauth.users=leonj:$$2y$$05$$GUwNhacl8L5ocTGimiXtNevivFdcvT/zpyu7HGs9nZE47qs49WRxS" # Basic auth for the dashboard
+      # - "traefik.http.routers.portainer-secure.middlewares=portainer-auth" # Apply the basic auth middleware to the dashboard
+    networks:
+      - traefik_network
+
+networks:
+  traefik_network:
+    external: true

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  x0vnc:
+    image: accetto/ubuntu-vnc-xfce:latest
+    container_name: x0vncserver
+    # privileged: true
+    ports:
+      - "5900:5900"
+      # - "6901:6901"
+    environment:
+      - DISPLAY=:0
+      - VNC_PASSWORD=${VNC_PW} # Set the VNC password
+      - VNC_PW=${VNC_PW} # Set the VNC password
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /home/${USER}:/home/${USER}:ro
+    networks:
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      # VNC
+      - "traefik.http.routers.vnc.entrypoints=websecure"
+      - "traefik.tcp.routers.vnc.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.vnc.service=vnc"
+      - "traefik.tcp.services.vnc.loadbalancer.server.port=5900"
+      # NoVNC
+      # - "traefik.http.routers.no_vnc.entrypoints=no_vnc-tcp"
+      # - "traefik.tcp.routers.no_vnc.rule=HostSNI(`*`)"
+      # - "traefik.tcp.routers.no_vnc.service=no_vnc"
+      # - "traefik.tcp.services.no_vnc.loadbalancer.server.port=6901"
+
+networks:
+  traefik_network:
+    external: true

@@ -1,0 +1,51 @@
+# ~/Documents/traefik_docker/docker-compose.yml
+version: '3.8'
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: always
+    command:
+      - "--api.insecure=true" # Désactiver en production
+
+      - "--api.dashboard=true" # Activer le tableau de bord
+      - "--providers.docker=true" # Active la détection automatique des conteneurs Docker
+      - "--providers.docker.exposedbydefault=false" # Ne pas exposer tous les conteneurs par défaut
+
+      - "--entrypoints.web.address=:80" # Point d'entrée HTTP
+      - "--entrypoints.websecure.address=:443" # Point d'entrée HTTPS
+
+        # Redirections HTTP vers HTTPS
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true" # Challenge TLS pour Let's Encrypt
+      - "--certificatesresolvers.letsencrypt.acme.email=leonjubin@gmail.com" # Email pour Let's Encrypt
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json" # Stockage des certificats
+      # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory" # Serveur de test Let's Encrypt
+    
+    ports:
+      - "55367:80" # HTTP
+      - "55368:443" # HTTPS
+      - "8085:8080" # Port du tableau de bord
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro" # Nécessaire pour détecter les conteneurs
+      - "./letsencrypt:/letsencrypt" # Stockage des certificats
+    networks:
+      - traefik_network
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.traefik-dashboard.rule=Host(`craw.haribon.me`)"
+    - "traefik.http.routers.traefik-dashboard.service=api@internal"
+    - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+    - "traefik.http.routers.traefik-dashboard.tls=true"
+    - "traefik.http.routers.traefik-dashboard.tls.certresolver=letsencrypt"
+    - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8085"
+    - "traefik.http.middlewares.traefik-auth.basicauth.users=leonj:$$2y$$05$$MvF/ZKULnAzMkzbX6eK1GuOgOEwDJcQuQYJl6bzvBq8OBs5zwr0Pi" # Basic auth for the dashboard
+    - "traefik.http.routers.traefik-dashboard.middlewares=traefik-auth" # Apply the basic auth middleware to the dashboard
+    - "metrics.prometheus=true" # Enable Prometheus metrics for Traefik
+    
+    
+networks:
+  traefik_network:
+    external: true

@@ -1,0 +1,33 @@
+# ~/Documents/code-server_docker/docker-compose.yml
+version: '3'
+services:
+  code-server:
+    image: codercom/code-server:latest
+    container_name: code-server
+    ports:
+      - "8084:8080"
+    volumes:
+    volumes:
+      - ../:/home/coder/project
+      - ./ssh:/home/coder/.ssh
+      # - ./vscode/settings.json:/home/coder/.local/share/code-server/User/settings.json:ro
+      # - ./userfile.env:/etc/traefik/userfile.env
+    environment:
+      - PASSWORD=${CODE_SERVER_PASSWORD} # Set the password for code-server
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.code-server-secure.rule=Host(`ant.haribon.me`)"
+      - "traefik.http.routers.code-server-secure.entrypoints=websecure"
+      - "traefik.http.routers.code-server-secure.tls=true"
+      - "traefik.http.routers.code-server-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.code-server-secure.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.code-server-auth.basicauth.users=leonj:$$2y$$05$$dtXx2tXAd9NEp5oj1o1eJ.HC2ISAzy/tYrWlh9q1Y0eUcZc0rv29." # Basic auth for the dashboard
+      # - "traefik.http.middlewares.code-server-auth.basicauth.usersfile=/home/leonj/Documents/infra/code-server_docker/userfile.env"
+      - "traefik.http.routers.code-server-secure.middlewares=code-server-auth" # Apply the basic auth middleware to the dashboard
+    networks:
+      - traefik_network
+
+networks:
+  traefik_network:
+    external: true

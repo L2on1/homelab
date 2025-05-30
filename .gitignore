@@ -1,0 +1,7 @@
+.env
+
+guacamole_docker/guacamole-auth-jdbc-1.5.3
+
+traefik_docker/letsencrypt
+
+portainer_docker/data

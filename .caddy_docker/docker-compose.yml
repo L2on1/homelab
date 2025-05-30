@@ -1,0 +1,38 @@
+# ~/Documents/caddy_docker/docker-compose.yml
+version: '3'
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    ports:
+      - "8083:80"    # HTTP
+      # - "8443:443"   # HTTPS
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./www:/srv/www
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+    networks:
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      
+      - "traefik.http.routers.caddy-secure.rule=Host(`haribon.me`)"
+      - "traefik.http.routers.caddy-secure.entrypoints=websecure"
+      - "traefik.http.routers.caddy-secure.tls=true"
+      - "traefik.http.routers.caddy-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.caddy-secure.loadbalancer.server.port=80"
+      
+      # localhost
+      - "traefik.http.routers.caddy-local.rule=Host(`http://localhost:8083`)"
+      - "traefik.http.services.caddy-local.loadbalancer.server.port=80"
+      
+
+networks:
+  traefik_network:
+    external: true
+
+volumes:
+  caddy_data:
+  caddy_config:

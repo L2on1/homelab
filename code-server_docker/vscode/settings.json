@@ -1,0 +1,12 @@
+{
+    "terminal.integrated.profiles.linux": {
+      "SSH Host leonj": {
+        "path": "/bin/bash",
+        "args": ["-c", "ssh leonj"],
+        "icon": "terminal-ssh",
+        "color": "terminal.ansiCyan"
+      }
+    },
+    "terminal.integrated.defaultProfile.linux": "SSH Host leonj"
+  }
+  

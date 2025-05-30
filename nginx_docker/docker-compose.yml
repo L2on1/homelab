@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8083:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./www:/usr/share/nginx/html
+    networks:
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx-secure.rule=Host(`haribon.me`)"
+      - "traefik.http.routers.nginx-secure.entrypoints=websecure"
+      - "traefik.http.routers.nginx-secure.tls=true"
+      - "traefik.http.routers.nginx-secure.tls.certresolver=letsencrypt"
+      # - "traefik.http.services.nginx-secure.loadbalancer.server.port=80"
+
+    restart: unless-stopped
+
+networks:
+  traefik_network:
+    external: true

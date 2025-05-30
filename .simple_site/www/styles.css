@@ -1,0 +1,120 @@
+#rainbow-pre {
+    font-family: monospace;
+    white-space: pre;
+    line-height: 1.2;
+    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, indigo, violet);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-animation 5s linear infinite;
+    background-size: 500%; /* Double la taille pour un effet fluide */
+  }
+@keyframes rainbow-animation {
+    0% { background-position: 500% 250%; }
+    500% { background-position: 250% 0%; }}
+
+/* Conteneur général pour tous les groupes de <pre> */
+.flex-container{
+  display: flex;
+  justify-content: center; /* Centre les éléments horizontalement */
+  align-items: center; /* Centre les éléments verticalement */
+  gap: 20px; /* Ajoute un espace entre les blocs */
+  margin: auto; /* Centre le conteneur et ajoute un espace autour */
+  width: 100%; /* Prend toute la largeur disponible */
+}
+/* Mode debug */
+.debug .flex-container {
+  border: 1px solid #ddd; /* Optionnel : bordure pour visualiser les blocs */
+  background-color: #f0f0f0; /* Optionnel : couleur de fond */
+}
+
+/* Styles par défaut pour tous les <pre> */
+pre {
+  display: flex;
+  font-family: monospace;
+  white-space: pre;
+  line-height: 1;
+  padding: 1px;
+  text-align: center;
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+}
+/*Mode debug */
+.debug .pre{
+  border: 1px solid #ddd; /* Bordure pour visualiser les blocs */
+  background-color: #f0f0f0; /* Couleur de fond */
+}
+
+/* Taille spécifique pour chaque <pre> */
+.haribon_logo {
+  line-height: 1.2;
+  font-size: 1em;
+  background-color: rgb(255, 208, 0);
+}
+
+.haribon_char {
+  font-size: 2em;
+}
+
+.stupid_ascii {
+  font-size: 0.8em;
+}
+ 
+.flex-row {
+  display: flex;
+  align-items: center; /* Aligne les blocs en haut */
+  justify-content: center; /* Centre les éléments horizontalement */
+  gap: 2%; /* Ajoute un espace entre les deux blocs */
+  width: 100%; /* Prend toute la largeur disponible */  
+}
+/* Mode debug */
+.debug .flex-row {
+  border: 1px solid #ddd; /* Optionnel : bordure pour visualiser les blocs */
+  background-color: #f0f0f0; /* Optionnel : couleur de fond */
+}
+
+.art_ascii{ 
+  font-size: 1.1em;
+  width: 45%; /* Chaque bloc prend 45% de la largeur */
+  align-items: center; /* Centre les éléments verticalement */
+  text-align: center; /* Centre le texte à l'intérieur */
+  justify-content: center; /* Centre les éléments horizontalement */
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+  padding: auto;
+}
+/* Mode debug */
+.debug .art_ascii {
+  border: 1px solid #ddd; /* Bordure pour visualiser les blocs */
+  background-color: #f9f9f9; /* Couleur de fond */
+}
+
+.projets_ascii{
+  font-size: 0.6em;
+  width: 45%; /* Chaque bloc prend 45% de la largeur */
+  text-align: center; 
+  align-items: center; 
+  justify-content: center; /* Centre les éléments horizontalement */
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+  padding: auto;
+}
+/* Mode debug */
+.debug .projets_ascii {
+  border: 1px solid #ddd; /* Bordure pour visualiser les blocs */
+  background-color: #f9f9f9; /* Couleur de fond */
+}
+
+.about_ascii {
+  font-size: 0.8em;
+}
+
+.footer {
+   text-align: center;
+   padding: 10px;
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+ }
+
+.mini_haribon_logo {
+   line-height: 1.2;
+   font-size: 0.8em;
+ }

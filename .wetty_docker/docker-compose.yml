@@ -1,0 +1,24 @@
+version: '3'
+services:
+  wetty:
+    image: wettyoss/wetty
+    container_name: wetty
+    ports:
+      - "3000:3000"
+    environment:
+      - SSHHOST=host.docker.internal  # ou l'IP du serveur SSH si externe
+      - SSHPORT=22
+      - PORT=3000
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wetty.rule=Host(`wetty.haribon.me`)"
+      - "traefik.http.routers.wetty.entrypoints=websecure"
+      - "traefik.http.routers.wetty.tls.certresolver=letsencrypt"
+      - "traefik.http.services.wetty.loadbalancer.server.port=3000"
+    networks:
+      - traefik_network
+
+networks:
+  traefik_network:
+    external: true
