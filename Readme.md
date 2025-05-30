@@ -1,8 +1,8 @@
 # infra docker de mon homelab
 
-fichier avec de . son de test pas deplayer
+fichier avec de ".x" sont des tests pas deployés
 
-present : 
+services presents et deployés : 
 - guacamole 
 - monitoring : graphana avec prometheus pour recuperer les donnés sur graphana + node exporter pour avoir des info des docker + cadadvisor qui recupere les donné pour prometheus
 - nginx : sur lequel il y a mon site web haribon minimal
@@ -15,5 +15,5 @@ TODO
 - Makefile
 - schema
 - remplacer cadvisor par l'outil docker car cadvisor trop gourmand
-- 
+- mettre les auth traefik dans un fichier a part
 
