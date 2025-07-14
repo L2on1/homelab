@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   guacd:
     image: guacamole/guacd
@@ -9,21 +7,24 @@ services:
       - traefik_network
 
   guacamole:
-    image: guacamole/guacamole
+    image: guacamole/guacamole:1.6.0
     container_name: guacamole
     restart: always
     environment:
-      GUACD_HOSTNAME: ${GUACD_HOSTNAME} # Set the guacd hostname
-      MYSQL_HOSTNAME: ${MYSQL_HOSTNAME} # Set the MySQL hostname
-      MYSQL_DATABASE: ${MYSQL_DATABASE} # Set the MySQL database name
-      MYSQL_USER: ${MYSQL_USER} # Set the MySQL user
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Set the MySQL password
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # Set the MySQL root password
+      GUACD_HOSTNAME: guacd
+      MYSQL_HOSTNAME: mysql
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_USERNAME: guacuser
+      MYSQL_PASSWORD: guacpass
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_ENABLED: true
     depends_on:
       - guacd
       - mysql
     ports:
       - "8082:8080"
+    volumes:
+      - initdb:/opt/guacamole/extensions/guacamole-auth-jdbc/mysql/schema:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.guacamole-secure.rule=Host(`frog.haribon.me`)"
@@ -51,13 +52,14 @@ services:
       MYSQL_PASSWORD: guacpass
     volumes:
       - mysql_data:/var/lib/mysql
+      - initdb:/docker-entrypoint-initdb.d:ro
     networks:
       - traefik_network
 
 volumes:
   mysql_data:
+  initdb:
 
 networks:
   traefik_network:
     external: true
-
