@@ -7,7 +7,6 @@ services:
     ports:
       - "8084:8080"
     volumes:
-    volumes:
       - ../:/home/coder/project
       - ./ssh:/home/coder/.ssh
       # - ./vscode/settings.json:/home/coder/.local/share/code-server/User/settings.json:ro
