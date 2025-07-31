@@ -1,0 +1,30 @@
+services:
+  dockge:
+    image: louislam/dockge:1
+    restart: unless-stopped
+    ports:
+      - 8095:5001
+    networks:
+      - traefik_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data
+      # Stacks Directory
+      # ⚠️ READ IT CAREFULLY. If you did it wrong, your data could end up writing into a WRONG PATH.
+      # ⚠️ 1. FULL path only. No relative path (MUST)
+      # ⚠️ 2. Left Stacks Path === Right Stacks Path (MUST)
+      - /home/leonj/Documents/infra:/home/leonj/Documents/infra
+    environment:
+      # Tell Dockge where to find the stacks
+      - DOCKGE_STACKS_DIR=/home/leonj/Documents/infra
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dockge-secure.rule=Host(`bubobubo.haribon.me`)"
+      - "traefik.http.routers.dockge-secure.entrypoints=websecure"
+      - "traefik.http.routers.dockge-secure.tls=true"
+      - "traefik.http.routers.dockge-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.dockge-secure.loadbalancer.server.port=5001"
+
+networks:
+  traefik_network:
+    external: true
