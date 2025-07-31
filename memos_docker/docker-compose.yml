@@ -1,0 +1,22 @@
+services:
+  memos:
+    image: neosmemo/memos:stable
+    container_name: memos
+    restart: unless-stopped
+    volumes:
+      - ~/.memos/:/var/opt/memos
+    ports:
+      - 8097:5230
+    networks:
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.memos-secure.rule=Host(`ara.haribon.me`)"
+      - "traefik.http.routers.memos-secure.entrypoints=websecure"
+      - "traefik.http.routers.memos-secure.tls=true"
+      - "traefik.http.routers.memos-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.memos-secure.loadbalancer.server.port=5230"
+
+networks:
+  traefik_network:
+    external: true
