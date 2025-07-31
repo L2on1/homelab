@@ -5,3 +5,27 @@ guacamole_docker/guacamole-auth-jdbc-1.5.3
 traefik_docker/letsencrypt
 
 portainer_docker/data
+**/wordpress_1_docker/**
+**/wordpress_2_docker/**
+**/wordpress_3_docker/**
+
+wordpress_4_docker/db/**
+
+wordpress_4_docker/wordpress/wp-content/et-cache/*
+wordpress_4_docker/wordpress/wp-content/languages/*
+wordpress_4_docker/wordpress/wp-content/mu-plugins/*
+wordpress_4_docker/wordpress/wp-content/plugins/*
+wordpress_4_docker/wordpress/wp-content/themes/*
+wordpress_4_docker/wordpress/wp-content/updraft/*
+wordpress_4_docker/wordpress/wp-content/upgrade/*
+wordpress_4_docker/wordpress/wp-content/uploads/*
+wordpress_4_docker/wordpress/wp-content/wflogs/*
+wordpress_4_docker/wordpress/wp-content/wp-cache-config.php
+wordpress_4_docker/wordpress/wp-content/wpo-cache/*
+wordpress_4_docker/wordpress/wp-content/wpvividbackups/*
+wordpress_4_docker/wordpress/wp-content/wpvivid_staging/*
+wordpress_4_docker/wordpress/wp-content/wpvivid_uploads/*
+wordpress_4_docker/wordpress/wp-content/plugins/elementor/
+
+wordpress_4_docker/wordpress/wp-includes/*
+wordpress_4_docker/wordpress/wp-admin/*

@@ -1,7 +1,7 @@
 ```
 docker network create traefik_network || true
 
-cd /home/leonj/Documents/traefik_docker && docker-compose up -d
+cd /home/leonj/Documents/infra/traefik_docker && docker-compose up -d
 cd ../caddy_docker && docker-compose up -d
 ```
 
@@ -26,7 +26,7 @@ docker network prune -f
 
 docker network create traefik_network || true
 
-cd /home/leonj/Documents/traefik_docker && docker-compose up -d
+cd /home/leonj/Documents/infra/traefik_docker && docker-compose up -d
 cd ../code-server_docker && docker-compose up -d
 cd ../portainer_docker && docker-compose up -d
 cd ../nginx_docker && docker-compose up -d
