@@ -1,0 +1,45 @@
+services:
+
+  wordpress:
+    image: wordpress:6.8-php8.2
+    restart: unless-stopped
+    # ports:
+    #  - 8094:80
+    depends_on:
+      - db
+    networks:
+      - wordpress
+      - traefik_network
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - ./wordpress:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wordpress-secure.rule=Host(`cat.haribon.me`)"
+      - "traefik.http.routers.wordpress-secure.entrypoints=websecure"
+      - "traefik.http.routers.wordpress-secure.tls=true"
+      - "traefik.http.routers.wordpress-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.wordpress-secure.loadbalancer.server.port=80"
+
+
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    networks:
+      - wordpress
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./db:/var/lib/mysql
+
+networks:
+  traefik_network:
+    external: true
+  wordpress:
