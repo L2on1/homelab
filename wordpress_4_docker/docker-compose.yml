@@ -3,8 +3,8 @@ services:
   wordpress:
     image: wordpress:6.8-php8.2
     restart: unless-stopped
-    # ports:
-    #  - 8094:80
+    ports:
+     - 8094:80
     depends_on:
       - db
     networks:
