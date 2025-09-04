@@ -6,7 +6,7 @@ services:
     container_name: traefik
     restart: always
     command:
-      - "--api.insecure=true" # Désactiver en production
+      - "--api.insecure=false" # Désactiver en production
 
       - "--api.dashboard=true" # Activer le tableau de bord
       - "--providers.docker=true" # Active la détection automatique des conteneurs Docker
