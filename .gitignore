@@ -26,6 +26,7 @@ wordpress_4_docker/wordpress/wp-content/wpvividbackups/*
 wordpress_4_docker/wordpress/wp-content/wpvivid_staging/*
 wordpress_4_docker/wordpress/wp-content/wpvivid_uploads/*
 wordpress_4_docker/wordpress/wp-content/plugins/elementor/
+wordpress_4_docker/wordpress/wp-content/upgrade-temp-backup/plugins/*
 
 wordpress_4_docker/wordpress/wp-includes/*
 wordpress_4_docker/wordpress/wp-admin/*
@@ -33,3 +34,5 @@ wordpress_4_docker/wordpress/wp-admin/*
 dockge_docker/data/*
 
 uptime-kuma_docker/uptime-kuma-data/*
+
+trilium_note/trilium-data/*

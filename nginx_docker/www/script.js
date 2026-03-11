@@ -22,24 +22,25 @@ function enableDebug() {
   // toggleDebug(); // Bascule le mode débogage
 
   // ----------- //
-
   document.addEventListener('DOMContentLoaded', function() {
-    const artAsciiPre = document.querySelector('.art_ascii');
-    const projetsAsciiPre = document.querySelector('.projets_ascii');
-    const archivesAsciiPre = document.querySelector('.archives_ascii');
+    const artsAscii_click =document.getElementById('arts_ascii')
+    const projetsAscii_click = document.getElementById('projets_ascii');
+    const archivesAscii_click = document.getElementById('archives_ascii');
+    const haribonLogo_click = document.getElementById('haribon_logo_home');
   
     function handleClickAndRedirect(element, path) {
       if (element) {
         element.addEventListener('click', function() {
           this.classList.add('invert');
           setTimeout(function() {
-            window.location.href = path; // Utilisation du chemin relatif
+            window.location.href = path;
           }, 300);
         });
       }
     }
-  
-    handleClickAndRedirect(artAsciiPre, './art.html');      // Chemin relatif pour la page "art"
-    handleClickAndRedirect(projetsAsciiPre, './projets.html'); // Chemin relatif pour la page "projets"
-    handleClickAndRedirect(archivesAsciiPre, './archives.html'); // Chemin relatif pour la page "archives"
+
+    handleClickAndRedirect(artsAscii_click, '/arts.html');
+    handleClickAndRedirect(projetsAscii_click, '/projects.html');
+    handleClickAndRedirect(archivesAscii_click, '/archives.html');
+    handleClickAndRedirect(haribonLogo_click, '/index.html');
   });

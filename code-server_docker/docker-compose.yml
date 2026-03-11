@@ -1,5 +1,4 @@
 # ~/Documents/code-server_docker/docker-compose.yml
-version: '3'
 services:
   code-server:
     image: codercom/code-server:latest

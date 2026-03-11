@@ -4,7 +4,7 @@ services:
     container_name: memos
     restart: unless-stopped
     volumes:
-      - ~/.memos/:/var/opt/memos
+      - ./.memos/:/var/opt/memos
     ports:
       - 8097:5230
     networks:

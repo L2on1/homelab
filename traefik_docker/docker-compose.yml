@@ -1,8 +1,7 @@
 # ~/Documents/traefik_docker/docker-compose.yml
-version: '3.8'
 services:
   traefik:
-    image: traefik:v2.10
+    image: traefik:latest
     container_name: traefik
     restart: always
     command:
@@ -21,8 +20,8 @@ services:
 
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true" # Challenge TLS pour Let's Encrypt
       - "--certificatesresolvers.letsencrypt.acme.email=leonjubin@gmail.com" # Email pour Let's Encrypt
-      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json" # Stockage des certificats
-      # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory" # Serveur de test Let's Encrypt
+      # - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json" # Stockage des certificats
+      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory" # Serveur de test Let's Encrypt
     
     ports:
       - "55367:80" # HTTP

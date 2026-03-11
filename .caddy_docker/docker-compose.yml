@@ -1,5 +1,4 @@
 # ~/Documents/caddy_docker/docker-compose.yml
-version: '3'
 services:
   caddy:
     image: caddy:latest

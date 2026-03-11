@@ -1,0 +1,113 @@
+/* --- Effet arc-en-ciel animé --- */
+.rainbow {
+    font-family: monospace;
+    white-space: pre;
+    line-height: 1.2;
+    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, indigo, violet);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 5s linear infinite;
+    background-size: 500%;
+  }
+  @keyframes rainbow {
+    from { background-position: 500% 250%; }
+    to   { background-position: 250% 0%; }
+  }
+  
+  /* --- Layout générique --- */
+  .flex {
+    display: flex;
+    gap: 2%;
+  }
+  .flex-center { justify-content: center; }
+  .flex-row { flex-direction: row;  }
+  .flex-col { flex-direction: column; }
+  .flex-grow { flex-grow: 1; }
+  .flex-space {justify-content: space-around; }
+
+  .grid {
+    display: grid;
+    align-items: center;
+  }
+  .grid-3-row {
+    grid-template-columns: 1fr auto 1fr;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+  .right-grid {text-align: right; } /* useless la mais je crois que ça peut servir */
+  .padding-6px {padding: 6px; }
+
+  .clickable {cursor:pointer; }
+  
+  .debug * {
+    /* border: 1px solid #ddd;
+    background-color: #f0f0f0; */
+  }
+
+  /* --- Base <p> --- */
+  p {
+    justify-content: center;
+    font-family: "Courier New", Courier, monospace;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  /* --- Base <pre> --- */
+  pre {
+    display: flex;
+    justify-content: center;
+    font-family: "Courier New", Courier, monospace;
+    white-space: pre;
+    line-height: 1.2;
+    padding: 2px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  /* --- Échelles de texte --- */
+  .text-xs { font-size: 0.4em; }
+  .text-sm { font-size: 0.6em; }
+  .text-md { font-size: 0.8em; }
+  .text-lg { font-size: 1em; }
+  
+  /* --- Cas particuliers --- */
+  .yellow-bg { background-color: rgb(255, 208, 0); }
+  footer { 
+    margin-top: auto; 
+    bottom: 0;
+    position: relative;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .home {
+    margin: 0;
+    align-content: center;
+    line-height: 1.5;
+    background-color: rgb(56, 56, 56);
+    color: rgb(255, 208, 0);
+  }
+  
+  /* --- Responsive --- */
+  @media (max-width: 900px) {
+    .flex-row { flex-direction: column; align-items: stretch; padding: 0 5%; }
+    .grid-3-row {grid-template-columns: 1fr;}
+    pre { margin-bottom: 10px; }
+    .text-lg { font-size: 0.8em; }
+    .text-md { font-size: 0.6em; }
+    .text-sm { font-size: 0.5em; }
+    .text-xs { font-size: 0.4em; }
+  }
+  
+  /* --- Listes & liens --- */
+  ul { list-style: none; padding: 10px; margin: 0; }
+  a {
+    color: blue;
+    font-family: "Courier New", Courier, monospace;
+  }
+  a:hover { text-decoration: underline; }
+  

@@ -1,7 +1,4 @@
-version: '3.8'
-
 services:
-
   node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
@@ -9,17 +6,16 @@ services:
     networks:
       - traefik_network
     ports:
-      - "9100:9100"
+      - 9100:9100
     pid: host
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
     command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--path.rootfs=/rootfs'
-
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/rootfs
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
@@ -27,36 +23,66 @@ services:
     networks:
       - traefik_network
     ports:
-      - "8090:8080"
+      - 8090:8080
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-
   prometheus:
     image: prom/prometheus
     container_name: prometheus
     restart: unless-stopped
     ports:
-      - "9090:9090"
+      - 9090:9090
     networks:
       - traefik_network
     volumes:
       - ./prometheus:/etc/prometheus
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.entrypoints=websecure"
-      - "traefik.http.routers.prometheus.tls.certresolver=letsencrypt"
-      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
-      - "metrics.prometheus=true"
-
+      - traefik.enable=true
+      - traefik.http.routers.prometheus.entrypoints=websecure
+      - traefik.http.routers.prometheus.tls.certresolver=letsencrypt
+      - traefik.http.services.prometheus.loadbalancer.server.port=9090
+      - metrics.prometheus=true
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox-exporter
+    restart: unless-stopped
+    networks:
+      - traefik_network
+    ports:
+      - 9115:9115
+  speedtest-exporter:
+    image: billimek/prometheus-speedtest-exporter:latest
+    container_name: speedtest-exporter
+    restart: unless-stopped
+    networks:
+      - traefik_network
+    ports:
+      - 9469:9469
+    environment:
+      - TZ=Europe/Paris
+  process-exporter:
+    image: ncabatoff/process-exporter:latest
+    container_name: process-exporter
+    restart: unless-stopped
+    networks:
+      - traefik_network
+    ports:
+      - 9256:9256
+    volumes:
+      - ./process-exporter.yml:/etc/process-exporter/config.yml:ro
+      - /proc:/host/proc:ro
+    command:
+      - --config.path=/etc/process-exporter/config.yml
+      - --procfs=/host/proc
   grafana:
     image: grafana/grafana
     container_name: grafana
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - 3000:3000
     networks:
       - traefik_network
     volumes:
@@ -64,17 +90,14 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
-
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=Host(`chouca.haribon.me`)"
-      - "traefik.http.routers.grafana.entrypoints=websecure"
-      - "traefik.http.routers.grafana.tls.certresolver=letsencrypt"
-      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
-
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`chouca.haribon.me`)
+      - traefik.http.routers.grafana.entrypoints=websecure
+      - traefik.http.routers.grafana.tls.certresolver=letsencrypt
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
 volumes:
-  grafana-storage:
-
+  grafana-storage: null
 networks:
   traefik_network:
     external: true

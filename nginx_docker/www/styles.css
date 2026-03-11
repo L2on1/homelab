@@ -1,20 +1,35 @@
 #rainbow-pre {
-    font-family: monospace;
-    white-space: pre;
-    line-height: 1.2;
-    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, indigo, violet);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: rainbow-animation 5s linear infinite;
-    background-size: 500%; /* Double la taille pour un effet fluide */
-  }
+  font-family: monospace;
+  white-space: pre;
+  line-height: 1.2;
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    indigo,
+    violet
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-animation 5s linear infinite;
+  background-size: 500%; /* Double la taille pour un effet fluide */
+}
 @keyframes rainbow-animation {
-    0% { background-position: 500% 250%; }
-    100% { background-position: 250% 0%; }}
+  0% {
+    background-position: 500% 250%;
+  }
+  100% {
+    background-position: 250% 0%;
+  }
+}
 
 /* Conteneur général pour tous les groupes de <pre> */
-.flex-container{
+.flex-container {
   display: flex;
   justify-content: center; /* Centre les éléments horizontalement */
   /* align-items: center; /* Centre les éléments verticalement */
@@ -33,7 +48,7 @@ pre {
   display: flex;
   justify-content: center; /* Centre le contenu horizontalement */
   /* align-items: center; /* Centre le contenu verticalement */
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   white-space: pre;
   letter-spacing: 0em;
   line-height: 1.2;
@@ -43,7 +58,7 @@ pre {
 }
 
 /*Mode debug */
-.debug .pre{
+.debug .pre {
   border: 1px solid #ddd; /* Bordure pour visualiser les blocs */
   background-color: #f0f0f0; /* Couleur de fond */
 }
@@ -61,7 +76,6 @@ pre {
 .stupid_ascii {
   font-size: 0.5em;
 }
- 
 
 .flex-row {
   display: flex;
@@ -86,7 +100,9 @@ pre {
 }
 
 /* Styles spécifiques pour les <pre> */
-.art_ascii, .projets_ascii, .archives_ascii {
+.art_ascii,
+.projets_ascii,
+.archives_ascii {
   width: 100%; /* S'assure qu'ils prennent toute la largeur de leur parent */
   font-size: 0.7em;
   padding: 0;
@@ -98,11 +114,12 @@ pre {
   align-items: center; /* Centre le contenu verticalement */
 }
 /* Mode debug */
-.debug .art_ascii, .debug .projets_ascii, .debug .archives_ascii {
+.debug .art_ascii,
+.debug .projets_ascii,
+.debug .archives_ascii {
   border: 1px solid #f08080; /* Bordure pour visualiser les blocs */
   background-color: #f9f9f9c4; /* Couleur de fond */
 }
-
 
 .about_ascii {
   font-size: 0.5em;
@@ -111,6 +128,7 @@ pre {
 .footer {
   bottom: 0;
   position: relative;
+  margin-top: auto;
 }
 
 .mini_haribon_logo {
@@ -144,7 +162,6 @@ body {
 
   .haribon_char {
     font-size: 0.8em; /* Ajuste la taille de la police pour les petits écrans */
-
   }
 
   .haribon_logo {
@@ -155,7 +172,9 @@ body {
     font-size: 0.4em; /* Ajuste la taille de la police pour les petits écrans */
   }
 
-  .art_ascii, .projets_ascii, .archives_ascii {
+  .art_ascii,
+  .projets_ascii,
+  .archives_ascii {
     font-size: 0.6em; /* Ajuste la taille de la police pour les petits écrans */
   }
 
@@ -168,17 +187,21 @@ body {
   }
 }
 
+/* UNUSED
 .invert {
   filter: invert(100%);
 }
+*/
 
 .page .flex-container {
   width: auto;
   justify-content: flex-start; /* Force l'alignement à gauche */
   margin-left: 10px; /* Ajoute une marge à gauche */
   margin-right: auto; /* Pour éviter un centrage par marge */
+  margin-top: 0;
+  margin-bottom: 0;
 }
-.page .haribon_char{
+.page .haribon_char {
   display: block;
 }
 
@@ -186,7 +209,7 @@ body {
 .page .projets_ascii,
 .page .archives_ascii {
   width: auto; /* S'assure qu'ils prennent toute la largeur de leur parent */
-  font-size: 0.7em;
+  font-size: 0.5em;
   box-sizing: border-box;
   text-align: center; /* S'assure que le texte est centré */
   justify-content: left; /* Centre le contenu horizontalement */
@@ -194,6 +217,13 @@ body {
   margin-right: auto; /* Pour éviter un centrage par marge */
 }
 
+.home {
+  margin: 0;
+  align-content: center;
+  line-height: 1.5;
+  background-color: rgb(56, 56, 56);
+  color: rgb(255, 208, 0);
+}
 
 ul {
   list-style-type: none; /* Supprime les puces */
@@ -204,7 +234,7 @@ ul {
 /* Tu peux ensuite styliser les liens eux-mêmes */
 a {
   color: blue;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   /* Ajoute d'autres styles comme la marge, le padding, la couleur au survol, etc. */
 }
 

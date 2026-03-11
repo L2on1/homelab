@@ -1,6 +1,6 @@
 services:
   dockge:
-    image: louislam/dockge:1
+    image: louislam/dockge:latest
     restart: unless-stopped
     ports:
       - 8095:5001
@@ -19,7 +19,7 @@ services:
       - DOCKGE_STACKS_DIR=/home/leonj/Documents/infra
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dockge-secure.rule=Host(`bubobubo.haribon.me`)"
+      - "traefik.http.routers.dockge-secure.rule=Host(`bubo.haribon.me`)"
       - "traefik.http.routers.dockge-secure.entrypoints=websecure"
       - "traefik.http.routers.dockge-secure.tls=true"
       - "traefik.http.routers.dockge-secure.tls.certresolver=letsencrypt"
