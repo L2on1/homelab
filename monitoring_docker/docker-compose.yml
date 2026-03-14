@@ -16,6 +16,7 @@ services:
       - --path.procfs=/host/proc
       - --path.sysfs=/host/sys
       - --path.rootfs=/rootfs
+      
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
@@ -29,6 +30,7 @@ services:
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -45,6 +47,7 @@ services:
       - traefik.http.routers.prometheus.tls.certresolver=letsencrypt
       - traefik.http.services.prometheus.loadbalancer.server.port=9090
       - metrics.prometheus=true
+
   blackbox-exporter:
     image: prom/blackbox-exporter:latest
     container_name: blackbox-exporter
@@ -53,6 +56,7 @@ services:
       - traefik_network
     ports:
       - 9115:9115
+
   speedtest-exporter:
     image: billimek/prometheus-speedtest-exporter:latest
     container_name: speedtest-exporter
@@ -77,6 +81,7 @@ services:
     command:
       - --config.path=/etc/process-exporter/config.yml
       - --procfs=/host/proc
+
   grafana:
     image: grafana/grafana
     container_name: grafana
