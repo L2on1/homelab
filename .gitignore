@@ -37,3 +37,5 @@ dockge_docker/data/*
 uptime-kuma_docker/uptime-kuma-data/*
 
 trilium_note/trilium-data/*
+
+dockge_docker/data/*.db-*
