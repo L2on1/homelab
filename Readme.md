@@ -17,3 +17,23 @@ TODO
 - remplacer cadvisor par l'outil docker car cadvisor trop gourmand
 - mettre les auth traefik dans un fichier a part
 
+
+
+
+----------------
+
+
+ant            : code
+bee           : portainer
+chouca    : grafana
+crow         : traefik
+frog          : guacamole
+steller      : immich ( Pygargue de Steller )
+ara           : memos
+ara2         : trillium
+bubo         : dockge ( bubobubo )
+pica        : libre
+cat            : libre
+test            : libre
+(noctua     : bitwarden )
+(jay        : rclone ) 
