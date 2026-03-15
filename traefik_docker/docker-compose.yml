@@ -34,7 +34,7 @@ services:
       - traefik_network
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.traefik-dashboard.rule=Host(`craw.haribon.me`)"
+    - "traefik.http.routers.traefik-dashboard.rule=Host(`crow.haribon.me`)"
     - "traefik.http.routers.traefik-dashboard.service=api@internal"
     - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
     - "traefik.http.routers.traefik-dashboard.tls=true"
