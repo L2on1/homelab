@@ -128,6 +128,10 @@ if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
 	eval($configExtra);
 }
 
+// define('WP_HOME', 'https://bearmaker.haribon.me');
+// define('WP_SITEURL', 'https://bearmaker.haribon.me');
+// define('FORCE_SSL_ADMIN', true);
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

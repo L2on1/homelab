@@ -15,11 +15,15 @@ services:
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
+      # WORDPRESS_CONFIG_EXTRA: |
+      #   define('WP_HOME', 'https://bearmaker.haribon.me');
+      #   define('WP_SITEURL', 'https://bearmaker.haribon.me');
     volumes:
       - ./wordpress:/var/www/html
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.wordpress-secure.rule=Host(`cat.haribon.me`)"
+      - "traefik.docker.network=traefik_network"
+      - "traefik.http.routers.wordpress-secure.rule=Host(`bearmaker.haribon.me`)"
       - "traefik.http.routers.wordpress-secure.entrypoints=websecure"
       - "traefik.http.routers.wordpress-secure.tls=true"
       - "traefik.http.routers.wordpress-secure.tls.certresolver=letsencrypt"
