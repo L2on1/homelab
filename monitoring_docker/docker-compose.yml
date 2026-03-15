@@ -42,10 +42,10 @@ services:
     volumes:
       - ./prometheus:/etc/prometheus
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.prometheus.entrypoints=websecure
-      - traefik.http.routers.prometheus.tls.certresolver=letsencrypt
-      - traefik.http.services.prometheus.loadbalancer.server.port=9090
+      # - traefik.enable=true
+      # - traefik.http.routers.prometheus.entrypoints=websecure
+      # - traefik.http.routers.prometheus.tls.certresolver=letsencrypt
+      # - traefik.http.services.prometheus.loadbalancer.server.port=9090
       - metrics.prometheus=true
 
   blackbox-exporter:
