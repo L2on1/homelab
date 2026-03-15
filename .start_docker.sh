@@ -56,19 +56,20 @@ log "=== Redémarrage des services Docker ==="
 
 RESTART_ORDER=(
   "traefik_docker"
-  "portainer_docker"
+  # "portainer_docker"
   "dockge_docker"
   "nginx_docker"
 #   "wordpress_1_docker"
 #   "wordpress_2_docker"
 #   "wordpress_3_docker"
-  "wordpress_4_docker"
+  "wordpress_docker"
   "memos_docker"
   "monitoring_docker"
-  "uptime-kuma_docker"
+  # "uptime-kuma_docker"
 #   "trilium_note"
   "guacamole_docker"
   "code-server_docker"
+  "immich_docker"
 )
 
 for STACK in "${RESTART_ORDER[@]}"; do
