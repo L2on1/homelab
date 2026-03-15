@@ -21,6 +21,7 @@ services:
       - ${UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
       - /mnt/Nas/Photos:/mnt/nas-photos:ro
+      - /mnt/Nas_Google/Photos:/mnt/nas-photos-google:ro
     env_file:
       - .env
     ports:
@@ -37,7 +38,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik_network"
-      - "traefik.http.routers.immich-secure.rule=Host(`test.haribon.me`)"
+      - "traefik.http.routers.immich-secure.rule=Host(`steller.haribon.me`)"
       - "traefik.http.routers.immich-secure.entrypoints=websecure"
       - "traefik.http.routers.immich-secure.tls=true"
       - "traefik.http.routers.immich-secure.tls.certresolver=letsencrypt"
