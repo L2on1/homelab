@@ -1,0 +1,30 @@
+#---------------------------------------------------------------------#
+#     Homarr - A simple, yet powerful dashboard for your server.      #
+#---------------------------------------------------------------------#
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/homarr-labs/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - ./homarr/appdata:/appdata
+    environment:
+      - SECRET_ENCRYPTION_KEY=e82a6819dbc01b5d9593972e78228df3b04019db368464195cb1af4ca49e2e31
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homarr-secure.rule=Host(`cat.haribon.me`)"
+      - "traefik.http.routers.homarr-secure.entrypoints=websecure"
+      - "traefik.http.routers.homarr-secure.tls=true"
+      - "traefik.http.routers.homarr-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.homarr-secure.loadbalancer.server.port=7575"
+      - "traefik.http.middlewares.homarr-auth.basicauth.users=leonj:$$apr1$$5mBb89Kd$$7esoGax2EfzmfqQsSN6pS0" # Basic auth for the dashboard
+      - "traefik.http.routers.homarr-secure.middlewares=homarr-auth" # Apply the basic auth middleware to the dashboard
+    ports:
+      - '8086:7575'
+    networks:
+      - traefik_network
+
+networks:
+  traefik_network:
+    external: true
