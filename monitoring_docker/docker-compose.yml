@@ -82,6 +82,29 @@ services:
       - --config.path=/etc/process-exporter/config.yml
       - --procfs=/host/proc
 
+  glances:
+    image: nicolargo/glances:latest-full
+    container_name: glances
+    restart: unless-stopped
+    pid: host
+    networks:
+      - traefik_network
+    ports:
+      - 61208:61208
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+      - ./glances/glances.pwd:/root/.config/glances/glances.pwd:ro
+    environment:
+      - GLANCES_OPT=-w --password
+      - TZ=Europe/Paris
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.glances.rule=Host(`pica.haribon.me`)
+      - traefik.http.routers.glances.entrypoints=websecure
+      - traefik.http.routers.glances.tls.certresolver=letsencrypt
+      - traefik.http.services.glances.loadbalancer.server.port=61208
+
   grafana:
     image: grafana/grafana
     container_name: grafana
