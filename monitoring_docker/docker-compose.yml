@@ -67,6 +67,7 @@ services:
       - 9469:9469
     environment:
       - TZ=Europe/Paris
+
   process-exporter:
     image: ncabatoff/process-exporter:latest
     container_name: process-exporter
@@ -81,6 +82,17 @@ services:
     command:
       - --config.path=/etc/process-exporter/config.yml
       - --procfs=/host/proc
+
+  snmp-exporter:
+    image: prom/snmp-exporter
+    container_name: snmp-exporter
+    networks:
+      - traefik_network
+    ports:
+      - "9116:9116"
+    volumes:
+      - ./snmp/snmp.yml:/etc/snmp_exporter/snmp.yml:ro
+    restart: unless-stopped
 
   glances:
     image: nicolargo/glances:latest-full
